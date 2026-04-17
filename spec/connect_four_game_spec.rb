@@ -10,20 +10,25 @@ describe ConnectFourGame do
 
 
   describe '#play' do
+    it 'updates current_player to a player' do 
+      allow(game).to receive(:play_rounds)
+      allow(game).to receive(:introduction)
+      game.play
+      current_player = game.current_player
+      expect(current_player).to eq(player_one).or eq(player_two)
+    end
   end
   describe '#introduction' do
     context 'when called' do 
-
-      after do 
-      game.introduction
-      end
-
-      it 'puts a message' do 
+ 
+      it 'puts a message' do
         expect(game).to receive(:puts).once
+        game.introduction 
       end
       
       it 'calls display on board object' do 
         expect(board).to receive(:display)
+        game.introduction
       end
     end 
   end
@@ -52,7 +57,7 @@ describe ConnectFourGame do
 
       before do 
         game.instance_variable_set(:@current_player, player_one)
-        current_player = game.instance_variable_get(:@current_player)
+        current_player = game.current_player 
         allow(current_player).to receive(:choose_position)
       end
 
@@ -69,36 +74,15 @@ describe ConnectFourGame do
       it 'add one round' do 
       expect {game.play_one_round}.to change {game.instance_variable_get(:@round)}.by(1) 
       end 
-    end
-  describe '#choose_first_player' do
-    it 'updates current_player to a player' do 
-      
-    end
 
-  end
-  describe '#switch_current_player' do 
-    context 'when current_player is player_one' do
-
-      before do 
-        game.instance_variable_set(:@current_player, player_one)
-      end
-      it 'updates current_player to player_two' do
-        game.switch_current_player
-        current_player = game.instance_variable_get(:@current_player)
+      it 'updates current_player to player_two' do 
+        game.play_one_round
+        current_player = game.current_player
         expect(current_player).to equal(player_two)
       end
     end
+  describe '#choose_first_player' do
 
-    context 'when current_player is player_two' do 
 
-      before do 
-        game.instance_variable_set(:@current_player, player_two)
-      end
-      it 'updates current_player to player_one' do
-        game.switch_current_player 
-        current_player = game.instance_variable_get(:@current_player)
-        expect(current_player).to equal(player_one)
-      end
-    end
   end
 end

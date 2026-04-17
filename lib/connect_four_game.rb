@@ -3,6 +3,8 @@ require_relative 'connect_four_player'
 
 
 class ConnectFourGame
+
+  attr_reader :current_player
   
   def initialize (board = Board.new(), player_one = Player.new("One"), player_two = Player.new("Two"))
     @board = board
@@ -37,16 +39,17 @@ class ConnectFourGame
     @round += 1
   end
 
-  def switch_current_player
-    player = @current_player === @player_one? @player_two : @player_one
-    @current_player = player 
-  end
+  
+
+  private
 
   def choose_first_player
     @current_player = @player_one
   end
-
-
+  
+  def switch_current_player
+    player = @current_player === @player_one? @player_two : @player_one
+    @current_player = player 
+  end
 end
-
 
