@@ -8,10 +8,14 @@ class ConnectFourGame
     @board = board
     @player_one = player_one
     @player_two = player_two
+    @game_over = false
+    @current_player = nil 
+    @round = 0
   end
     
   def play 
     introduction
+    choose_first_player
     play_rounds
   end
 
@@ -21,8 +25,27 @@ class ConnectFourGame
   end
 
   def play_rounds
-    
+    loop do
+      play_one_round
+      break if @board.game_over?
+      end
   end
+
+  def play_one_round 
+    @current_player.choose_position
+    switch_current_player
+    @round += 1
+  end
+
+  def switch_current_player
+    player = @current_player === @player_one? @player_two : @player_one
+    @current_player = player 
+  end
+
+  def choose_first_player
+    @current_player = @player_one
+  end
+
 
 end
 
