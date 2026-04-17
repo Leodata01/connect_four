@@ -34,19 +34,19 @@ class ConnectFourGame
   end
 
   def play_one_round 
-    @current_player.choose_position
+    position = @current_player.choose_position(@board.available_positions)
+    @board.update_available_postions(position)
     switch_current_player
     @round += 1
   end
 
-  
 
   private
 
   def choose_first_player
     @current_player = @player_one
   end
-  
+
   def switch_current_player
     player = @current_player === @player_one? @player_two : @player_one
     @current_player = player 
