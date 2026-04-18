@@ -59,6 +59,9 @@ describe ConnectFourGame do
         game.instance_variable_set(:@current_player, player_one)
         current_player = game.current_player 
         allow(current_player).to receive(:choose_position)
+        allow(current_player).to receive(:sign)
+        allow(board).to receive(:available_column_choices)
+        allow(board).to receive(:update_available_positions)
       end
 
       it 'ask current player to choose a position' do 

@@ -1,7 +1,10 @@
 
 class Player
-  def initialize(name)
+  attr_reader :sign
+  
+  def initialize(name, sign)
     @name = name
+    @sign = sign 
   end
 
   def choose_position(available_positions)
@@ -10,4 +13,6 @@ class Player
       return position if available_positions.include? position 
       end
   end
+
+
 end

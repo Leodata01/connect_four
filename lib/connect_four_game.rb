@@ -6,7 +6,7 @@ class ConnectFourGame
 
   attr_reader :current_player
   
-  def initialize (board = Board.new(), player_one = Player.new("One"), player_two = Player.new("Two"))
+  def initialize (board = Board.new(), player_one = Player.new("One", ☑), player_two = Player.new("Two", ☒))
     @board = board
     @player_one = player_one
     @player_two = player_two
@@ -34,8 +34,9 @@ class ConnectFourGame
   end
 
   def play_one_round 
-    position = @current_player.choose_position(@board.available_positions)
-    @board.update_available_postions(position)
+    @board.display
+    column_choice = @current_player.choose_position(@board.available_column_choices)
+    @board.update_available_positions(column_choice, @current_player.sign)
     switch_current_player
     @round += 1
   end
